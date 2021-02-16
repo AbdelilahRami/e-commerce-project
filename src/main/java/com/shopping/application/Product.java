@@ -30,11 +30,9 @@ public class Product {
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     private ProductCategory productCategory;
 
 
