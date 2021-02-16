@@ -12,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -27,8 +28,7 @@ public class User {
     @Column
     private String phone;
 
-    @OneToOne
-    @JoinColumn
+    @Embedded
     private Address address;
 
     @OneToMany(mappedBy = "userId")

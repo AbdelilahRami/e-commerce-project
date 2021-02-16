@@ -1,12 +1,17 @@
 package com.shopping.application;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import lombok.*;
+
+import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Table(name = "product-category")
+
 public class ProductCategory {
     @Id
     private String id;
