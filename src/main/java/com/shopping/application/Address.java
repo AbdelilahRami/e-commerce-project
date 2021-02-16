@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Embeddable
 public class Address {
 
-    private String id;
     @Column
     private String postalCode;
     @Column
