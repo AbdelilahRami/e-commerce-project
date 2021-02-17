@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product-category")
+@Table(name = "product_category")
 
 public class ProductCategory {
     @Id
