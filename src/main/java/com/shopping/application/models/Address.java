@@ -1,4 +1,4 @@
-package com.shopping.application;
+package com.shopping.application.models;
 
 
 import lombok.*;
