@@ -1,6 +1,7 @@
 package com.shopping.application.controller;
 
 import com.shopping.application.dto.ProductDto;
+import com.shopping.application.models.Product;
 import com.shopping.application.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,19 +20,20 @@ public class ProductController {
     @GetMapping
     private List<ProductDto> getProducts(){
 
-        return null;
+        return productService.getAll();
     }
     @GetMapping("/{id}")
     private ProductDto getProduct(@PathVariable String id){
 
-        return null;
+        return productService.getProductById(id);
 
     }
 
     @PostMapping
     private  ProductDto createProduct(@RequestBody ProductDto productDto){
 
-        return null;
+       return productService.createProduct(productDto);
+
     }
 
 
