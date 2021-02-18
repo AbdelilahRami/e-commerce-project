@@ -6,7 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Embeddable
@@ -16,5 +15,7 @@ public class Address {
     private String postalCode;
     @Column
     private String address;
+    @Column
+    private String city;
 
 }
