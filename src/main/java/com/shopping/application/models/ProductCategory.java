@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@Builder
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
