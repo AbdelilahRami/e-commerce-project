@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(("fr.bonneau.warhammerPainting.controller")))
+                .apis(RequestHandlerSelectors.basePackage(("com.shopping.application.controller")))
                 .paths(PathSelectors.any())
                 .build();
     }

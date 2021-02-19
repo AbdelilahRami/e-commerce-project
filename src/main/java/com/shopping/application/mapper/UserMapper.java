@@ -3,8 +3,6 @@ package com.shopping.application.mapper;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import java.util.UUID;
-
 import com.shopping.application.dto.AddresseDto;
 import com.shopping.application.dto.UserDto;
 import com.shopping.application.models.Address;
