@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -24,15 +25,24 @@ public abstract class ProductMapper {
     private  ProductCategoryRepository productCategoryRepository;
 
 
-    //@Mapping(target ="id", expression = "java(product.getId().toString())")
+    @Mapping(target ="id", expression = "java(mapUUIDToString(product))")
     @Mapping(target ="user", expression = "java(getUserName(product))")
     @Mapping(target ="productCategory", expression = "java(getCategoryName(product))")
     public abstract ProductDto productToProductDTO(Product product);
 
-    //@Mapping(target ="id", expression = "java(java.util.UUID.fromString(productDto.getId()))")
+    @Mapping(target ="id", expression = "java(mapStringToUUID(productDto.getId()))")
     @Mapping(target ="userId", expression = "java(getUserByUsername(productDto))")
     @Mapping(target ="productCategory", expression = "java(getProductCategory(productDto))")
     public abstract Product productDTOToProduct(ProductDto productDto);
+
+    public String mapUUIDToString(Product product){
+        UUID uuid = product.getId();
+        return uuid != null ? uuid.toString() : null;
+    }
+
+    public UUID mapStringToUUID(String id){
+        return id!=null ? UUID.fromString(id): null;
+    }
 
      String getUserName(Product product){
         User user = product.getUserId();
@@ -60,7 +70,7 @@ public abstract class ProductMapper {
 
     private List<ProductDto> getProductsDTOFromProducts(List<Product> products) {
         return products.stream()
-                .map(product -> productToProductDTO(product))
+                .map(this::productToProductDTO)
                 .collect(Collectors.toList());
     }
 
