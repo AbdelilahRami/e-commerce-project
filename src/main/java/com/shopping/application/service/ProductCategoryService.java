@@ -6,6 +6,8 @@ import com.shopping.application.models.ProductCategory;
 import com.shopping.application.repositorie.ProductCategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ProductCategoryService {
     private final ProductCategoryMapper productCategoryMapper;
@@ -21,5 +23,9 @@ public class ProductCategoryService {
         ProductCategory productCategory = productCategoryMapper.productCategoryDtoToProductCategory(productCategoryDto);
         productCategoryRepository.save(productCategory);
 
+    }
+
+    public Optional<ProductCategory> getProductCategory(Long id) {
+        return productCategoryRepository.findById(id);
     }
 }
