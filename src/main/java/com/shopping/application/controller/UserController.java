@@ -1,6 +1,7 @@
 package com.shopping.application.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import com.shopping.application.mapper.UserMapper;
 import com.shopping.application.models.User;
 import com.shopping.application.service.UserService;
 
-@RestController("api/va/users")
+@RestController("/api/v1/users")
 public class UserController {
 
     private UserService userService;
@@ -33,7 +34,7 @@ public class UserController {
     }
     
     @GetMapping("/{id}")
-    ResponseEntity<UserDto> getById(@PathVariable String id){
+    ResponseEntity<UserDto> getById(@PathVariable UUID id){
         return ResponseEntity.ok(userMapper.userToUserDto(userService.getById(id)));
     }
     

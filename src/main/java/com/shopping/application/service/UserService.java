@@ -1,6 +1,7 @@
 package com.shopping.application.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -16,19 +17,19 @@ public class UserService {
     private UserRepository userRepository;
     
     public List<User> getAll(){
-        return userRepository.getAll();
+        return userRepository.findAll();
     }
     
-    public User getById(String id) {
-        return userRepository.getById(id);
+    public User getById(UUID id) {
+        return userRepository.findById(id).orElse(null);
     }
     
     public User createUser(User user) {
-        return userRepository.saveOrUpdate(user);
+        return userRepository.save(user);
     }
     
     public User updateUser(User user) {
-        return userRepository.saveOrUpdate(user);
+        return null;
     }
     
     public void deleteUser(User user) {
