@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public abstract class ProductCategoryMapper {
+
     @Autowired
     private  ProductMapper productMapper;
 
@@ -34,6 +35,22 @@ public abstract class ProductCategoryMapper {
                 .map(productDto -> productMapper.productDTOToProduct(productDto))
                 .collect(Collectors.toSet());
 
+    }
+    @Mapping(target = "id", source = "productCategory.id")
+    @Mapping(target = "categoryName", source= "productCategory.categoryName")
+    @Mapping(target = "products", expression = "java(getProductDTOsFromCategory(productCategory))")
+    public abstract ProductCategoryDto productCategoryToProductCategoryDto(ProductCategory productCategory);
+
+
+    Set<ProductDto> getProductDTOsFromCategory(ProductCategory productCategory){
+        Set<Product> products = productCategory.getProducts();
+        return products != null ? mapProductsToProductDTOs(products): null;
+    }
+
+    Set<ProductDto> mapProductsToProductDTOs(Set<Product> products){
+        return products.stream()
+                        .map(product -> productMapper.productToProductDTO(product))
+                        .collect(Collectors.toSet());
     }
 
 }
