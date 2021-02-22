@@ -11,19 +11,23 @@ import com.shopping.application.models.User;
 import com.shopping.application.repositorie.UserRepository;
 
 @Service
-@Transactional
 public class UserService {
 
     private UserRepository userRepository;
     
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     public List<User> getAll(){
         return userRepository.findAll();
     }
     
-    public User getById(UUID id) {
-        return userRepository.findById(id).orElse(null);
+    public User getById(String id) {
+        return userRepository.findById(UUID.fromString(id)).orElse(null);
     }
     
+    @Transactional
     public User createUser(User user) {
         return userRepository.save(user);
     }

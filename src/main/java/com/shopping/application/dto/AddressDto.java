@@ -1,13 +1,11 @@
 package com.shopping.application.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddresseDto {
+public class AddressDto {
 
     private String postalCode;
     private String address;

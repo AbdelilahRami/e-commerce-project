@@ -2,7 +2,6 @@ package com.shopping.application.models;
 
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Data
