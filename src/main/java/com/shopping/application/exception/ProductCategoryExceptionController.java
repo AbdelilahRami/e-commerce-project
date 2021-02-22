@@ -13,9 +13,9 @@ public class ProductCategoryExceptionController extends ResponseEntityExceptionH
     public ResponseEntity<ProductCategoryDto> numberFormatException(NumberFormatException e){
         return ResponseEntity.notFound().build();
     }
-    @ExceptionHandler(value = NullPointerException.class)
+   /* @ExceptionHandler(value = NullPointerException.class)
     public ResponseEntity<ProductCategoryDto> nullPointerException(NullPointerException e){
         return ResponseEntity.notFound().build();
-    }
+    }*/
 
 }
