@@ -1,8 +1,6 @@
 package com.shopping.application.controller;
 
 import java.util.List;
-import java.util.UUID;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +34,7 @@ public class UserController {
     }
     
     @GetMapping("/{id}")
-    ResponseEntity<UserDto> getById(@PathVariable UUID id){
+    ResponseEntity<UserDto> getById(@PathVariable String id){
         return ResponseEntity.ok(userMapper.userToUserDto(userService.getById(id)));
     }
     
