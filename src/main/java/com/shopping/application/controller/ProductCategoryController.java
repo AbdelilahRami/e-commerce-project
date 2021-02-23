@@ -22,7 +22,7 @@ public class ProductCategoryController {
     }
 
     @PostMapping
-    public void createCategory(@RequestBody @Validated ProductCategoryDto productCategoryDto){
+    public void createCategory(@RequestBody ProductCategoryDto productCategoryDto){
 
         productCategoryService.create(productCategoryDto);
 

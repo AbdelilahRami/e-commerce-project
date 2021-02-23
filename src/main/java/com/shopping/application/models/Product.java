@@ -28,10 +28,11 @@ public class Product {
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User userId;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductCategory productCategory;
+
 
 
 }
