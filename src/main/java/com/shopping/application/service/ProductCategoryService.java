@@ -28,4 +28,10 @@ public class ProductCategoryService {
     public Optional<ProductCategory> getProductCategory(Long id) {
         return productCategoryRepository.findById(id);
     }
+
+    public boolean isExistedCategory(String categoryName){
+        Optional<ProductCategory> productCategory =productCategoryRepository.getProductCategoryByCategoryName(categoryName);
+        return productCategory.isPresent();
+    }
+
 }
