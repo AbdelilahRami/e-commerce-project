@@ -24,7 +24,8 @@ public class UserService {
     }
     
     public User getById(String id) {
-        return userRepository.findById(UUID.fromString(id)).orElse(null);
+        User user=  userRepository.findById(UUID.fromString(id)).orElse(null);
+        return user;
     }
     
     @Transactional

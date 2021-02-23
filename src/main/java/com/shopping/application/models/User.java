@@ -8,6 +8,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
 public class User {
@@ -28,7 +29,7 @@ public class User {
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private Set<Product> products;
 
 }
