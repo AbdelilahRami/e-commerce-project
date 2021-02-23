@@ -17,4 +17,8 @@ public class ProductDto {
     private String user;
     private String productCategory;
 
+    public boolean hasCategoryDto(){
+        return this.productCategory != null && this.productCategory.isEmpty();
+    }
+
 }
