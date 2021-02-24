@@ -24,6 +24,7 @@ public class UserService {
     }
     
     public User getById(String id) {
+        System.out.println(userRepository.findById(UUID.fromString(id)).orElse(null));
         return userRepository.findById(UUID.fromString(id)).orElse(null);
     }
     
@@ -33,7 +34,7 @@ public class UserService {
     }
     
     public User updateUser(User user) {
-        return null;
+        return userRepository.save(user);
     }
     
     public void deleteUser(User user) {

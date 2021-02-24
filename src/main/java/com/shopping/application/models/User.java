@@ -14,6 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @Column(length = 16)
     private UUID id;
 
     @Column
