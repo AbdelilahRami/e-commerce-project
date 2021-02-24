@@ -2,9 +2,11 @@ package com.shopping.application.models;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Builder
 @EqualsAndHashCode
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue
+    @Column(length = 16)
     private UUID id;
     @Column
     private String productName;
@@ -32,7 +35,6 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private ProductCategory productCategory;
-
 
 
 }
