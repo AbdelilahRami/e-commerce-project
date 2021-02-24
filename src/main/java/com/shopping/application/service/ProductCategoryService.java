@@ -1,6 +1,7 @@
 package com.shopping.application.service;
 
 import com.shopping.application.dto.ProductCategoryDto;
+import com.shopping.application.dto.ProductDto;
 import com.shopping.application.mapper.ProductCategoryMapper;
 import com.shopping.application.models.ProductCategory;
 import com.shopping.application.repositorie.ProductCategoryRepository;
@@ -29,9 +30,10 @@ public class ProductCategoryService {
         return productCategoryRepository.findById(id);
     }
 
-    public boolean isExistedCategory(String categoryName){
-        Optional<ProductCategory> productCategory =productCategoryRepository.getProductCategoryByCategoryName(categoryName);
-        return productCategory.isPresent();
+    public boolean isExistedCategory(ProductDto productDto){
+        boolean categoryExists = productDto.hasCategoryDto();
+        ProductCategory productCategory =categoryExists? productCategoryRepository.getProductCategoryByCategoryName(productDto.getProductCategory()).orElse(null): null;
+        return productCategory != null;
     }
 
 }

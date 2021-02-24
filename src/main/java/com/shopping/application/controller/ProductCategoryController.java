@@ -2,11 +2,8 @@ package com.shopping.application.controller;
 
 import com.shopping.application.dto.ProductCategoryDto;
 import com.shopping.application.mapper.ProductCategoryMapper;
-import com.shopping.application.models.ProductCategory;
 import com.shopping.application.service.ProductCategoryService;
-import com.shopping.application.service.ProductService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
