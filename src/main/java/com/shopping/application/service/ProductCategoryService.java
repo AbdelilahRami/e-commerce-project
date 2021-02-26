@@ -31,9 +31,7 @@ public class ProductCategoryService {
     }
 
     public boolean isExistedCategory(ProductDto productDto){
-        boolean categoryExists = productDto.hasCategoryDto();
-        ProductCategory productCategory =categoryExists? productCategoryRepository.getProductCategoryByCategoryName(productDto.getProductCategory()).orElse(null): null;
-        return productCategory != null;
+       return productDto.hasCategoryDto();
     }
 
 }
