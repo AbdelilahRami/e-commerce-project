@@ -21,6 +21,6 @@ public abstract class UserMapper {
     @Mapping(target = "id",  expression = "java(userDto.getId() != null? UUID.fromString(userDto.getId()):null)")
     public abstract User userDtoToUser(UserDto userDto);
     
-    public abstract AddressDto adresseToAdresseDto(Address address);
+    public abstract AddressDto adresseToAdressDto(Address address);
     public abstract Address adresseDtoToAdress(AddressDto addresseDto);
 }

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -169,6 +170,29 @@ public class UserControllerTest {
         String id = "ec91018d-5103-4774-bd0c-f0bd85321555";
 
         mockMvc.perform(put("/api/v1/users/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(userDto)))
+        .andExpect(status().isBadRequest());
+    }
+    
+    /*----------------------delete ------------------------------*/
+    @Test
+    void deleteShouldRetunUserDtoUpdate() throws Exception {
+        String id = "ec91018d-5103-4774-bd0c-f0bd85321f38";
+
+        when(mappeur.userDtoToUser(userDto)).thenReturn(user);
+        
+        mockMvc.perform(delete("/api/v1/users/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(userDto)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void deleteShouldRetun400WhenIdIsDifferent() throws Exception {
+        String id = "ec91018d-5103-4774-bd0c-f0bd85321555";
+
+        mockMvc.perform(delete("/api/v1/users/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(objectMapper.writeValueAsString(userDto)))
         .andExpect(status().isBadRequest());

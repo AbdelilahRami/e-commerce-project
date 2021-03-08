@@ -24,7 +24,6 @@ public class UserService {
     }
     
     public User getById(String id) {
-        System.out.println(userRepository.findById(UUID.fromString(id)).orElse(null));
         return userRepository.findById(UUID.fromString(id)).orElse(null);
     }
     

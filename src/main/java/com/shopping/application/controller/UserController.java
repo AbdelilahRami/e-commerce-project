@@ -57,7 +57,7 @@ public class UserController {
         
     @DeleteMapping("/{id}")
     ResponseEntity<?> delete(@PathVariable String id, @RequestBody UserDto userDto){
-        if(id.equals(userDto.getId())) {
+        if(!id.equals(userDto.getId())) {
             return ResponseEntity.badRequest().body("The Id in parameter must be the same in the body of the request");
         }
         userService.deleteUser(userMapper.userDtoToUser(userDto));
