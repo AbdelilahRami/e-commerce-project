@@ -1,5 +1,6 @@
 package com.shopping.application.repositorie;
 
+import com.shopping.application.models.Brand;
 import com.shopping.application.models.Product;
 import com.shopping.application.models.ProductCategory;
 import org.junit.jupiter.api.Assertions;
@@ -21,12 +22,12 @@ class ProductRepositoryTest {
     private ProductRepository productRepository;
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
-
+    private Brand brand= Brand.builder().brandName("Nike").build();
     private ProductCategory productCategory = ProductCategory.builder().categoryName("Clothes").build();
-    private Product product1 = Product.builder().productName("product1").brandName("Nike").productCategory(productCategory).build();
-    private Product product2 = Product.builder().productName("product2").brandName("J&J").productCategory(productCategory).build();
-    private Product product3 = Product.builder().productName("product3").brandName("Adidas").productCategory(productCategory).build();
-    private Product product4 = Product.builder().productName("product4").brandName("Zara").productCategory(productCategory).build();
+    private Product product1 = Product.builder().productName("product1").brandName(brand).productCategory(productCategory).build();
+    private Product product2 = Product.builder().productName("product2").productCategory(productCategory).build();
+    private Product product3 = Product.builder().productName("product3").productCategory(productCategory).build();
+    private Product product4 = Product.builder().productName("product4").productCategory(productCategory).build();
     private List<Product> products = new ArrayList<>();
     private UUID wrongUuid= UUID.fromString("c7029154-cfe3-48df-9a4c-58d5d8e03e2c");
 
@@ -49,7 +50,7 @@ class ProductRepositoryTest {
     @Test
     @DisplayName("find a product by it's brand")
     void given_a_valid_brandName_then_return_product() {
-        Product retrievedProduct = productRepository.findByBrandName("Nike");
+        Product retrievedProduct = productRepository.findByBrandName(brand);
         Assertions.assertEquals(product1 ,retrievedProduct);
 
     }

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping
-    private List<ProductDto> getProducts(){
+    private Collection<ProductDto> getProducts(){
 
         return productService.getAll();
     }

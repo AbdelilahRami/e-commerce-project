@@ -34,8 +34,8 @@ public abstract class ProductCategoryMapper {
         return productDTOs.stream()
                 .map(productDto -> productMapper.productDTOToProduct(productDto))
                 .collect(Collectors.toSet());
-
     }
+
     @Mapping(target = "id", source = "productCategory.id")
     @Mapping(target = "categoryName", source= "productCategory.categoryName")
     @Mapping(target = "products", expression = "java(getProductDTOsFromCategory(productCategory))")

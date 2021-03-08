@@ -23,8 +23,8 @@ public class Product {
     private String productName;
     @Column
     private String description;
-    @Column
-    private String brandName;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Brand brandName;
     @Column
     private Double price;
     @Column

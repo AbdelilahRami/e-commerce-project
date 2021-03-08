@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -47,9 +45,9 @@ public class ProductService {
         return Optional.ofNullable(product);
     }
 
-    public List<ProductDto> getAll() {
+    public Collection<ProductDto> getAll() {
         List<Product> products = productRepository.findAll();
-        List<ProductDto> productDtos = productMapper.mapProductsDToToProducts(products);
+        Set<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
         return productDtos;
     }
 

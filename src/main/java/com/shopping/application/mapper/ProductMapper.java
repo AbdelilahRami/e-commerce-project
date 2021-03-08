@@ -1,10 +1,13 @@
 package com.shopping.application.mapper;
 
+import com.shopping.application.dto.BrandDto;
 import com.shopping.application.dto.ProductDto;
 import com.shopping.application.exception.UuidConversionException;
+import com.shopping.application.models.Brand;
 import com.shopping.application.models.Product;
 import com.shopping.application.models.ProductCategory;
 import com.shopping.application.models.User;
+import com.shopping.application.repositorie.BrandRepository;
 import com.shopping.application.repositorie.ProductCategoryRepository;
 import com.shopping.application.repositorie.ProductRepository;
 import com.shopping.application.repositorie.UserRepository;
@@ -12,8 +15,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -24,11 +26,16 @@ public abstract class ProductMapper {
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
     @Autowired
+    private BrandRepository brandRepository;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private BrandMapper brandMapper;
 
 
     @Mapping(target = "id", expression = "java(mapUUIDToString(product))")
     @Mapping(target = "user", expression = "java(getUserId(product))")
+    @Mapping(target = "brandName", expression = "java(product.getBrandName().getBrandName())")
     @Mapping(target = "productCategory", expression = "java(getCategoryName(product))")
     public abstract ProductDto productToProductDTO(Product product);
 
@@ -49,11 +56,18 @@ public abstract class ProductMapper {
 
     @Mapping(target = "id", expression = "java(mapStringToUUID(productDto.getId()))")
     @Mapping(target = "user", expression = "java(getUserByProductDto(productDto))")
+    @Mapping(target = "brandName", expression = "java(getBrandByName(productDto))")
     @Mapping(target = "productCategory", expression = "java(getProductCategory(productDto))")
     public abstract Product productDTOToProduct(ProductDto productDto);
 
     public UUID mapStringToUUID(String id) {
         return Helper.manageProductUUIdConversion(id);
+    }
+
+    Brand getBrandByName(ProductDto productDto) {
+        String brandName = productDto.getBrandName();
+        Brand brand= brandRepository.findBrandByBrandName(brandName);
+        return brand;
     }
 
     ProductCategory getProductCategory(ProductDto productDto) {
@@ -69,14 +83,21 @@ public abstract class ProductMapper {
         return user;
     }
 
-    public List<ProductDto> mapProductsDToToProducts(List<Product> products) {
+    public Set<ProductDto> mapProductsToProductsDTo(Collection<Product> products) {
         return products != null ? getProductsDTOFromProducts(products) : null;
 
     }
-    private List<ProductDto> getProductsDTOFromProducts(List<Product> products) {
+
+    private Set<ProductDto> getProductsDTOFromProducts(Collection<Product> products) {
         return products.stream()
                 .map(this::productToProductDTO)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Product> mapProductsDToToProducts(Collection<ProductDto> productDTOs) {
+        return productDTOs.stream()
+                .map(this::productDTOToProduct)
+                .collect(Collectors.toSet());
     }
 
 }
