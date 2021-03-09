@@ -21,8 +21,6 @@ import java.util.Collection;
 public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    private final String NO_CATEGORY_FOUND_404 = "N0_CATEGORY_FOUND_404";
-
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
     private final ProductMapper productMapper;
