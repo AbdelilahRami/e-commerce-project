@@ -13,7 +13,6 @@ import com.shopping.application.models.User;
 public interface UserRepository extends JpaRepository<User, UUID> {
 
     List<User> findAll();
-
     Optional<User> findById(UUID id);
         
 }

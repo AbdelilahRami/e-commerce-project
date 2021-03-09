@@ -24,6 +24,6 @@ public class BrandController {
     public ResponseEntity<BrandDto> createBrand(@RequestBody BrandDto brandDto){
         Brand brand = brandMapper.brandDtoToBrand(brandDto);
         Brand savedBrand = brandRepository.save(brand);
-        return new ResponseEntity<>(brandMapper.brandToBrandDto(brand), HttpStatus.OK);
+        return new ResponseEntity<>(brandMapper.brandToBrandDto(savedBrand), HttpStatus.OK);
     }
 }

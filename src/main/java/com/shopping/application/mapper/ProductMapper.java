@@ -67,13 +67,13 @@ public abstract class ProductMapper {
     Brand getBrandByName(ProductDto productDto) {
         String brandName = productDto.getBrandName();
         Brand brand= brandRepository.findBrandByBrandName(brandName);
-        return brand;
+        return brand != null ? brand: Brand.builder().brandName(brandName).build();
     }
 
     ProductCategory getProductCategory(ProductDto productDto) {
         String categoryName = productDto.getProductCategory();
         ProductCategory productCategory = productCategoryRepository.getProductCategoryByCategoryName(categoryName).orElse(null);
-        return productCategory;
+        return productCategory != null ? productCategory : ProductCategory.builder().categoryName(categoryName).build();
     }
 
     User getUserByProductDto(ProductDto productDto) {

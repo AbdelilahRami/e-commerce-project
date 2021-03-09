@@ -4,20 +4,21 @@ package com.shopping.application.service;
 import com.shopping.application.dto.ProductDto;
 import com.shopping.application.exception.ProductNotFoundException;
 import com.shopping.application.exception.UuidConversionException;
+import com.shopping.application.mapper.Helper;
 import com.shopping.application.mapper.ProductMapper;
 import com.shopping.application.models.Product;
 import com.shopping.application.repositorie.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
 public class ProductService {
 
-
-
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
@@ -56,5 +57,10 @@ public class ProductService {
         Product mappedProduct = productMapper.productDTOToProduct(productDto);
         Product updatedProduct = productRepository.save(product);
         return Optional.of(updatedProduct);
+    }
+
+    public void deleteProduct(String id) {
+        UUID uuid = Helper.manageProductUUIdConversion(id);
+        productRepository.deleteById(uuid);
     }
 }
