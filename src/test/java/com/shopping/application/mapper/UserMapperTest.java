@@ -16,7 +16,7 @@ import com.shopping.application.models.Address;
 import com.shopping.application.models.User;
 
 public class UserMapperTest {
-
+    
     private UserDto userDto;
     private User user;
     private AddressDto addressDto;

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.shopping.application.exception.UserNotFound;
 import com.shopping.application.models.User;
 import com.shopping.application.repositorie.UserRepository;
 
@@ -23,8 +24,8 @@ public class UserService {
         return userRepository.findAll();
     }
     
-    public User getById(String id) {
-        return userRepository.findById(UUID.fromString(id)).orElse(null);
+    public User getById(String id) throws UserNotFound {
+        return userRepository.findById(UUID.fromString(id)).orElseThrow(UserNotFound::new);
     }
     
     @Transactional

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.application.dto.UserDto;
+import com.shopping.application.exception.UserNotFound;
 import com.shopping.application.mapper.UserMapper;
 import com.shopping.application.models.User;
 import com.shopping.application.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
     }
     
     @GetMapping("/{id}")
-    ResponseEntity<UserDto> getById(@PathVariable String id){
+    ResponseEntity<UserDto> getById(@PathVariable String id) throws UserNotFound{
         return ResponseEntity.ok(userMapper.userToUserDto(userService.getById(id)));
     }
     

@@ -26,8 +26,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.shopping.application.controller.exception.UserControllerException;
 import com.shopping.application.dto.AddressDto;
 import com.shopping.application.dto.UserDto;
+import com.shopping.application.exception.UserNotFound;
 import com.shopping.application.mapper.UserMapper;
 import com.shopping.application.models.Address;
 import com.shopping.application.models.User;
@@ -76,7 +78,8 @@ public class UserControllerTest {
         service = mock(UserService.class);
         mappeur = mock(UserMapper.class);
         UserController controller = new UserController(service, mappeur);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).
+                setControllerAdvice(new UserControllerException()).build();
     }
     
     /*--------------------get all--------------------*/
@@ -142,6 +145,17 @@ public class UserControllerTest {
 
         UserDto result = objectMapper.readValue(mockResult, UserDto.class);
         assertThat(result).isEqualTo(userDto);
+    }
+    
+    @Test
+    void getByIdShouldReturn404WhenUserNotFound() throws Exception {
+        String id = "ec91018d-5103-4774-bd0c-f0bd85321455";
+
+        when(service.getById(id)).thenThrow(UserNotFound.class);
+        
+        mockMvc.perform(get("/api/v1/users/{id}", id))
+                .andExpect(status().isNotFound());
+            
     }
     
     /*----------------------update ------------------------------*/

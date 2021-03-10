@@ -12,6 +12,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.shopping.application.exception.UserNotFound;
 import com.shopping.application.models.Address;
 import com.shopping.application.models.User;
 import com.shopping.application.repositorie.UserRepository;
@@ -56,7 +57,7 @@ public class UserServiceTest {
     
     /*--------------------getById--------------------*/
     @Test
-    void getByIdRetunUser() {
+    void getByIdRetunUser() throws Exception {
         String id = "ec91018d-5103-4774-bd0c-f0bd85321f38";
         
         when(userRepository.findById(UUID.fromString(id))).thenReturn(Optional.of(user));
@@ -66,13 +67,19 @@ public class UserServiceTest {
     }
     
     @Test
-    void getByIdRetunNullIfUserNotFoud() {
-        String id = "ec91018d-5103-4774-bd0c-f0bd85321f38";
+    void getByIdShouldThrowsExceptionIfUserNotFoud() {
+        String id = "ec91018d-5103-4774-bd0c-f0bd85321f40";
         
-        when(userRepository.findById(UUID.fromString(id))).thenReturn(Optional.of(null));
+        when(userRepository.findById(UUID.fromString(id))).thenReturn(Optional.empty());
         
-        User result = userService.getById(id);
-        assertThat(result).isNull();
+        User result;
+        try {
+            result = userService.getById(id);
+            assertThat(false);
+        } catch (UserNotFound e) {
+            assertThat(true);
+        }
+
     }
     
     /*--------------------create--------------------*/
@@ -85,7 +92,7 @@ public class UserServiceTest {
         assertThat(result).isEqualTo(user);
     }
     
-    /*--------------------create--------------------*/
+    /*--------------------update--------------------*/
     @Test
     void updateRetunUser() {
         
