@@ -39,7 +39,7 @@ public class ProductExceptionController  {
     }
     @ExceptionHandler(value = CategoryCreationException.class)
     public ResponseEntity<ErrorMessage> productCategoryCreationException(CategoryCreationException e){
-        logger.error("Product no found");
+        logger.error("cannot create category");
         ErrorMessage errorMessage = ErrorMessage.builder().statusCode(HttpStatus.BAD_REQUEST.value()).message(e.getPRODUCT_CATEGORY_CANNOT_BE_CREATED()).build();
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
