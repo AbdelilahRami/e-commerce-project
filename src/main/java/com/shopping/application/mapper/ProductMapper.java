@@ -66,35 +66,34 @@ public abstract class ProductMapper {
 
     Brand getBrandByName(ProductDto productDto) {
         String brandName = productDto.getBrandName();
-        Brand brand= brandRepository.findBrandByBrandName(brandName);
-        return brand != null ? brand: Brand.builder().brandName(brandName).build();
+        Brand brand = brandRepository.findBrandByBrandName(brandName);
+        return brand != null ? brand : Brand.builder().brandName(brandName).build();
     }
 
     ProductCategory getProductCategory(ProductDto productDto) {
         String categoryName = productDto.getProductCategory();
-        ProductCategory productCategory = productCategoryRepository.getProductCategoryByCategoryName(categoryName).orElse(null);
-        return productCategory != null ? productCategory : ProductCategory.builder().categoryName(categoryName).build();
+        return productCategoryRepository.getProductCategoryByCategoryName(categoryName)
+                                        .orElseGet(() -> ProductCategory.builder().categoryName(categoryName).build());
     }
 
     User getUserByProductDto(ProductDto productDto) {
         String userId = productDto.getUser();
         UUID uuid = Helper.manageUserUUIdConversion(userId);
-        User user = uuid != null ? userRepository.findById(uuid).orElse(null) : null;
-        return user;
+        return uuid != null ? userRepository.findById(uuid).orElse(null) : null;
     }
 
-    public Set<ProductDto> mapProductsToProductsDTo(Collection<Product> products) {
+    public Collection<ProductDto> mapProductsToProductsDTo(Collection<Product> products) {
         return products != null ? getProductsDTOFromProducts(products) : null;
 
     }
 
-    private Set<ProductDto> getProductsDTOFromProducts(Collection<Product> products) {
+    private Collection<ProductDto> getProductsDTOFromProducts(Collection<Product> products) {
         return products.stream()
                 .map(this::productToProductDTO)
                 .collect(Collectors.toSet());
     }
 
-    public Set<Product> mapProductsDToToProducts(Collection<ProductDto> productDTOs) {
+    public Collection<Product> mapProductsDToToProducts(Collection<ProductDto> productDTOs) {
         return productDTOs.stream()
                 .map(this::productDTOToProduct)
                 .collect(Collectors.toSet());

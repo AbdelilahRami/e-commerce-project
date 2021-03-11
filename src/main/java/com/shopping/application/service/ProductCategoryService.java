@@ -2,6 +2,7 @@ package com.shopping.application.service;
 
 import com.shopping.application.dto.ProductCategoryDto;
 import com.shopping.application.dto.ProductDto;
+import com.shopping.application.exception.CategoryCreationException;
 import com.shopping.application.exception.NoCategoryException;
 import com.shopping.application.mapper.ProductCategoryMapper;
 import com.shopping.application.models.ProductCategory;
@@ -21,10 +22,10 @@ public class ProductCategoryService {
         this.productCategoryRepository= productCategoryRepository;
     }
 
-    public void create(ProductCategoryDto productCategoryDto) {
+    public ProductCategory create(ProductCategoryDto productCategoryDto) {
 
         ProductCategory productCategory = productCategoryMapper.productCategoryDtoToProductCategory(productCategoryDto);
-        productCategoryRepository.save(productCategory);
+        return  Optional.of(productCategoryRepository.save(productCategory)).orElseThrow(CategoryCreationException::new);
 
     }
 

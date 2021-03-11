@@ -1,16 +1,14 @@
 package com.shopping.application.exception;
 
-import com.shopping.application.controller.ProductController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
-public class ProductExceptionController extends ResponseEntityExceptionHandler {
+@RestControllerAdvice
+public class ProductExceptionController  {
     private static final Logger logger = LoggerFactory.getLogger(ProductExceptionController.class);
 
 
@@ -39,5 +37,10 @@ public class ProductExceptionController extends ResponseEntityExceptionHandler {
         ErrorMessage errorMessage = ErrorMessage.builder().statusCode(HttpStatus.BAD_REQUEST.value()).message(e.getPRODUCT_NOT_FOUND()).build();
         return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
     }
-
-}
+    @ExceptionHandler(value = CategoryCreationException.class)
+    public ResponseEntity<ErrorMessage> productCategoryCreationException(CategoryCreationException e){
+        logger.error("Product no found");
+        ErrorMessage errorMessage = ErrorMessage.builder().statusCode(HttpStatus.BAD_REQUEST.value()).message(e.getPRODUCT_CATEGORY_CANNOT_BE_CREATED()).build();
+        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+    }
+    }

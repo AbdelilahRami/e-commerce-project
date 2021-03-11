@@ -37,30 +37,25 @@ public class ProductService {
 
     @Transactional
     public Optional<Product> getProductById(String id) {
-        try {
-            UUID uuid = UUID.fromString(id);
-        } catch (Exception e) {
-            throw new UuidConversionException();
-        }
-        Product product = productRepository.findById(UUID.fromString(id)).orElse(null);
-        return Optional.ofNullable(product);
+        UUID uuid = Helper.manageProductUUIdConversion(id);
+        return uuid != null ? productRepository.findById(uuid): Optional.empty();
     }
 
     public Collection<ProductDto> getAll() {
         List<Product> products = productRepository.findAll();
-        Set<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
+        Collection<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
         return productDtos;
     }
 
     public Optional<Product> updateProduct(ProductDto productDto, String id) {
         Product product = getProductById(id).orElseThrow(ProductNotFoundException::new);
         Product mappedProduct = productMapper.productDTOToProduct(productDto);
-        Product updatedProduct = productRepository.save(product);
+        Product updatedProduct = productRepository.save(mappedProduct);
         return Optional.of(updatedProduct);
     }
 
     public void deleteProduct(String id) {
-        UUID uuid = Helper.manageProductUUIdConversion(id);
-        productRepository.deleteById(uuid);
+        Product product = getProductById(id).orElseThrow(ProductNotFoundException::new);
+        productRepository.deleteById(product.getId());
     }
 }

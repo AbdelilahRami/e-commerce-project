@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collection;
 import java.util.Set;
 
 @Mapper(componentModel = "spring")
@@ -20,9 +21,9 @@ public abstract class BrandMapper {
     @Mapping(target = "products", expression = "java(getProductsDto(brand))")
     public abstract BrandDto brandToBrandDto(Brand brand);
 
-    public Set<ProductDto> getProductsDto(Brand brand){
+    public Collection<ProductDto> getProductsDto(Brand brand){
         Set<Product> products = brand.getProducts();
-        Set<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
+        Collection<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
         return  productDtos;
     }
 
@@ -32,9 +33,9 @@ public abstract class BrandMapper {
     public abstract Brand brandDtoToBrand(BrandDto brandDto);
 
 
-    public Set<Product> getProducts(BrandDto brandDto){
+    public Collection<Product> getProducts(BrandDto brandDto){
         Set<ProductDto> productDtos = brandDto.getProducts();
-        Set<Product> products = productMapper.mapProductsDToToProducts(productDtos);
+        Collection<Product> products = productMapper.mapProductsDToToProducts(productDtos);
         return  products;
     }
 
