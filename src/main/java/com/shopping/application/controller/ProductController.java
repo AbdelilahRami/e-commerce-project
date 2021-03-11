@@ -32,9 +32,9 @@ public class ProductController {
     }
 
     @GetMapping
-    private Collection<ProductDto> getProducts(){
+    private ResponseEntity<Collection<ProductDto>> getProducts(){
 
-        return productService.getAll();
+        return  new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     private ResponseEntity<ProductDto> getProduct(@PathVariable String id){
