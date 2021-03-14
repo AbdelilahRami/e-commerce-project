@@ -3,6 +3,7 @@ package com.shopping.application.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
 @Setter
 @Getter
@@ -20,5 +21,5 @@ public class Brand {
     private String brandName;
 
     @OneToMany(mappedBy = "brandName", cascade = CascadeType.REMOVE)
-    private Set<Product> products;
+    private Collection<Product> products;
 }

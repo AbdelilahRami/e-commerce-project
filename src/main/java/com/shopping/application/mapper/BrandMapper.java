@@ -22,7 +22,7 @@ public abstract class BrandMapper {
     public abstract BrandDto brandToBrandDto(Brand brand);
 
     public Collection<ProductDto> getProductsDto(Brand brand){
-        Set<Product> products = brand.getProducts();
+        Collection<Product> products = brand.getProducts();
         Collection<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
         return  productDtos;
     }
@@ -34,7 +34,7 @@ public abstract class BrandMapper {
 
 
     public Collection<Product> getProducts(BrandDto brandDto){
-        Set<ProductDto> productDtos = brandDto.getProducts();
+        Collection<ProductDto> productDtos = brandDto.getProducts();
         Collection<Product> products = productMapper.mapProductsDToToProducts(productDtos);
         return  products;
     }

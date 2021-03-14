@@ -2,6 +2,7 @@ package com.shopping.application.dto;
 
 import lombok.*;
 
+import java.util.Collection;
 import java.util.Set;
 @Data
 @Builder
@@ -12,5 +13,5 @@ public class BrandDto {
 
     private Long id;
     private String brandName;
-    private Set<ProductDto> products;
+    private Collection<ProductDto> products;
 }
