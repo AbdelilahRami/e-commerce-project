@@ -72,9 +72,9 @@ class ProductControllerTest {
     public void testFindAll() throws Exception {
 
         Mockito.when(productService.getAll()).thenReturn(productDtos);
-        Mockito.when(productCategoryService.isExistedCategory(productDto1)).thenReturn(true);
+        //Mockito.when(productCategoryService.isExistedCategory(productDto1)).thenReturn(true);
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/products/")
+                MockMvcRequestBuilders.get("/api/v1/products/")
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
         Assertions.assertEquals(response.getStatus(), HttpStatus.OK.value());
@@ -87,7 +87,7 @@ class ProductControllerTest {
         Mockito.when(productService.createProduct(productDto1)).thenReturn(productDto1);
 
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.post("/api/products/")
+                MockMvcRequestBuilders.post("/api/v1/products/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonProductDto.write(productDto1).getJson())
                         .accept(MediaType.APPLICATION_JSON))
@@ -105,13 +105,13 @@ class ProductControllerTest {
         Mockito.when(productMapper.productToProductDTO(product)).thenReturn(productDto1);
 
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/products/"+uuid)
+                MockMvcRequestBuilders.put("/api/v1/products/"+uuid)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonProductDto.write(productDto1).getJson())
                         .accept(MediaType.APPLICATION_JSON))
                         .andReturn().getResponse();
 
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(jsonProductDto.write(productDto1).getJson());
 
     }
@@ -122,7 +122,7 @@ class ProductControllerTest {
         doNothing().when(productService).deleteProduct(id);
 
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.delete("/api/products/"+id)
+                MockMvcRequestBuilders.delete("/api/v1/products/"+id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
