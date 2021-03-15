@@ -1,6 +1,6 @@
 package com.shopping.application.exception;
 
-public class UserNotFound extends Exception {
+public class UserNotFoundException extends Exception {
 
     private static final long serialVersionUID = 1L;
     

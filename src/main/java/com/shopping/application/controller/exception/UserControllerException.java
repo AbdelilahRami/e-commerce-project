@@ -4,13 +4,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.shopping.application.exception.UserNotFound;
+import com.shopping.application.exception.UserNotFoundException;
 
 @RestControllerAdvice
 public class UserControllerException {
 
-    @ExceptionHandler(UserNotFound.class)
-    public ResponseEntity<Object> handleMethodUserNotFoundException(UserNotFound e) {
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Object> handleMethodUserNotFoundException(UserNotFoundException e) {
 
         return ResponseEntity.notFound().build();
 

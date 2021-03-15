@@ -12,7 +12,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.shopping.application.exception.UserNotFound;
+import com.shopping.application.exception.UserNotFoundException;
 import com.shopping.application.models.Address;
 import com.shopping.application.models.User;
 import com.shopping.application.repositorie.UserRepository;
@@ -72,11 +72,10 @@ public class UserServiceTest {
         
         when(userRepository.findById(UUID.fromString(id))).thenReturn(Optional.empty());
         
-        User result;
         try {
-            result = userService.getById(id);
+            userService.getById(id);
             assertThat(false);
-        } catch (UserNotFound e) {
+        } catch (UserNotFoundException e) {
             assertThat(true);
         }
 
@@ -94,11 +93,28 @@ public class UserServiceTest {
     
     /*--------------------update--------------------*/
     @Test
-    void updateRetunUser() {
+    void updateRetunUser() throws UserNotFoundException {
+        String id = "ec91018d-5103-4774-bd0c-f0bd85321f38";
         
+        when(userRepository.findById(UUID.fromString(id))).thenReturn(Optional.of(user));
         when(userRepository.save(user)).thenReturn(user);
         
         User result = userService.updateUser(user);
         assertThat(result).isEqualTo(user);
+    }
+    
+    @Test
+    void updateShouldThrowsExceptionIfUserNotFoud() throws UserNotFoundException {
+        String id = "ec91018d-5103-4774-bd0c-f0bd85321f38";
+        
+        when(userRepository.findById(UUID.fromString(id))).thenReturn(Optional.empty());
+        when(userRepository.save(user)).thenReturn(user);
+        
+        try {
+            userService.getById(id);
+            assertThat(false);
+        } catch (UserNotFoundException e) {
+            assertThat(true);
+        }
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.application.dto.UserDto;
-import com.shopping.application.exception.UserNotFound;
+import com.shopping.application.exception.UserNotFoundException;
 import com.shopping.application.mapper.UserMapper;
 import com.shopping.application.models.User;
 import com.shopping.application.service.UserService;
@@ -43,12 +43,12 @@ public class UserController {
     }
     
     @GetMapping("/{id}")
-    ResponseEntity<UserDto> getById(@PathVariable String id) throws UserNotFound{
+    ResponseEntity<UserDto> getById(@PathVariable String id) throws UserNotFoundException {
         return ResponseEntity.ok(userMapper.userToUserDto(userService.getById(id)));
     }
     
     @PutMapping("/{id}")
-    ResponseEntity<?> update(@PathVariable String id, @RequestBody UserDto userDto){
+    ResponseEntity<?> update(@PathVariable String id, @RequestBody UserDto userDto) throws UserNotFoundException {
         if(!id.equals(userDto.getId())) {
             return ResponseEntity.badRequest().body("The Id in parameter must be the same in the body of the request");
         }
@@ -57,7 +57,7 @@ public class UserController {
     }
         
     @DeleteMapping("/{id}")
-    ResponseEntity<?> delete(@PathVariable String id, @RequestBody UserDto userDto){
+    ResponseEntity<?> delete(@PathVariable String id, @RequestBody UserDto userDto) throws UserNotFoundException {
         if(!id.equals(userDto.getId())) {
             return ResponseEntity.badRequest().body("The Id in parameter must be the same in the body of the request");
         }

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.shopping.application.controller.exception.UserControllerException;
 import com.shopping.application.dto.AddressDto;
 import com.shopping.application.dto.UserDto;
-import com.shopping.application.exception.UserNotFound;
+import com.shopping.application.exception.UserNotFoundException;
 import com.shopping.application.mapper.UserMapper;
 import com.shopping.application.models.Address;
 import com.shopping.application.models.User;
@@ -151,7 +151,7 @@ public class UserControllerTest {
     void getByIdShouldReturn404WhenUserNotFound() throws Exception {
         String id = "ec91018d-5103-4774-bd0c-f0bd85321455";
 
-        when(service.getById(id)).thenThrow(UserNotFound.class);
+        when(service.getById(id)).thenThrow(UserNotFoundException.class);
         
         mockMvc.perform(get("/api/v1/users/{id}", id))
                 .andExpect(status().isNotFound());

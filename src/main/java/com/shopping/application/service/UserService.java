@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.shopping.application.exception.UserNotFound;
+import com.shopping.application.exception.UserNotFoundException;
 import com.shopping.application.models.User;
 import com.shopping.application.repositorie.UserRepository;
 
@@ -24,8 +24,8 @@ public class UserService {
         return userRepository.findAll();
     }
     
-    public User getById(String id) throws UserNotFound {
-        return userRepository.findById(UUID.fromString(id)).orElseThrow(UserNotFound::new);
+    public User getById(String id) throws UserNotFoundException {
+        return userRepository.findById(UUID.fromString(id)).orElseThrow(UserNotFoundException::new);
     }
     
     @Transactional
@@ -33,11 +33,15 @@ public class UserService {
         return userRepository.save(user);
     }
     
-    public User updateUser(User user) {
+    @Transactional
+    public User updateUser(User user) throws UserNotFoundException {
+        userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         return userRepository.save(user);
     }
     
-    public void deleteUser(User user) {
+    @Transactional
+    public void deleteUser(User user) throws UserNotFoundException {
+        userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         userRepository.delete(user);
     }
 }
