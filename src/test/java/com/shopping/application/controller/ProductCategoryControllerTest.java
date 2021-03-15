@@ -23,7 +23,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.shopping.application.controller.exception.ProductCategoryExceptionController;
 import com.shopping.application.dto.ProductCategoryDto;
-import com.shopping.application.dto.UserDto;
 import com.shopping.application.mapper.ProductCategoryMapper;
 import com.shopping.application.models.ProductCategory;
 import com.shopping.application.service.ProductCategoryService;
@@ -98,7 +97,7 @@ public class ProductCategoryControllerTest {
     }
     
     @Test
-    void getByIdShouldRThrowNullPointeuException() throws Exception {
+    void getByIdShouldRThrowProductCategoryNotFoundException() throws Exception {
         Long id = 41L;
 
         when(productCategoryService.getProductCategory(id)).thenReturn(Optional.empty());
