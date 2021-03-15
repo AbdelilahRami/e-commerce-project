@@ -33,7 +33,7 @@ public abstract class BrandMapper {
     public abstract Brand brandDtoToBrand(BrandDto brandDto);
 
 
-    public Collection<Product> getProducts(BrandDto brandDto){
+    public Collection<Product> getProducts(BrandDto brandDto) {
         Collection<ProductDto> productDtos = brandDto.getProducts();
         Collection<Product> products = productMapper.mapProductsDToToProducts(productDtos);
         return  products;
