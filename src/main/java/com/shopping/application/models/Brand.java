@@ -3,24 +3,23 @@ package com.shopping.application.models;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Set;
-
-@Getter
 @Setter
+@Getter
 @Builder
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "product_category")
-
-public class ProductCategory {
+@Table(name = "brand")
+public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String categoryName;
+    private String brandName;
 
-    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.REMOVE)
-    private Set<Product> products;
+    @OneToMany(mappedBy = "brandName", cascade = CascadeType.REMOVE)
+    private Collection<Product> products;
 }
