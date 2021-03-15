@@ -40,20 +40,20 @@ public class ProductService {
         UUID uuid = Helper.manageProductUUIdConversion(id);
         return uuid != null ? productRepository.findById(uuid): Optional.empty();
     }
-
+    @Transactional
     public Collection<ProductDto> getAll() {
         List<Product> products = productRepository.findAll();
         Collection<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
         return productDtos;
     }
-
+    @Transactional
     public Optional<Product> updateProduct(ProductDto productDto, String id) {
         Product product = getProductById(id).orElseThrow(ProductNotFoundException::new);
         Product mappedProduct = productMapper.productDTOToProduct(productDto);
         Product updatedProduct = productRepository.save(mappedProduct);
         return Optional.of(updatedProduct);
     }
-
+    @Transactional
     public void deleteProduct(String id) {
         Product product = getProductById(id).orElseThrow(ProductNotFoundException::new);
         productRepository.deleteById(product.getId());
