@@ -1,8 +1,8 @@
 package com.shopping.application.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shopping.application.controller.exception.ProductExceptionController;
 import com.shopping.application.dto.ProductDto;
-import com.shopping.application.exception.ProductExceptionController;
 import com.shopping.application.mapper.ProductMapper;
 import com.shopping.application.models.Product;
 import com.shopping.application.models.ProductCategory;

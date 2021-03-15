@@ -1,4 +1,4 @@
-package com.shopping.application.exception;
+package com.shopping.application.controller.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.shopping.application.exception.CategoryCreationException;
+import com.shopping.application.exception.ErrorMessage;
+import com.shopping.application.exception.NoCategoryException;
+import com.shopping.application.exception.ProductNotFoundException;
+import com.shopping.application.exception.UuidConversionException;
 
 @RestControllerAdvice
 public class ProductExceptionController  {
@@ -35,7 +41,7 @@ public class ProductExceptionController  {
     public ResponseEntity<ErrorMessage> productNotFoundException(ProductNotFoundException e){
         logger.error("Product no found");
         ErrorMessage errorMessage = ErrorMessage.builder().statusCode(HttpStatus.BAD_REQUEST.value()).message(e.getPRODUCT_NOT_FOUND()).build();
-        return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorMessage,HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(value = CategoryCreationException.class)
     public ResponseEntity<ErrorMessage> productCategoryCreationException(CategoryCreationException e){
