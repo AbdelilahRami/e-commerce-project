@@ -17,8 +17,8 @@ import java.util.UUID;
 public class OrderItem {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private BigDecimal unitPrice;
@@ -26,6 +26,7 @@ public class OrderItem {
     private Integer quantity;
     @Column
     private UUID productId;
-    @ManyToOne
-    private Order order;
+   /* @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;*/
 }

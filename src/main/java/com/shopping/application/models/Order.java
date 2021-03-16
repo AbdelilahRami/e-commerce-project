@@ -23,10 +23,11 @@ public class Order {
 
     @Id
     @GeneratedValue
+    @Column(length = 16)
     private UUID id;
     @Column
     private BigDecimal totalPrice;
-
+    @Column
     private OrderStatus orderStatus;
 
     @Column
@@ -41,6 +42,6 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "order")
-    private Set<OrderItem> orderItems= new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<OrderItem> orderItems;
 }
