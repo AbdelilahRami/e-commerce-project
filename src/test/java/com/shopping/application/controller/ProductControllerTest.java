@@ -80,6 +80,24 @@ class ProductControllerTest {
         Assertions.assertEquals(response.getStatus(), HttpStatus.OK.value());
         Assertions.assertEquals(response.getContentAsString(), jsonProductDtos.write(productDtos).getJson());
     }
+    
+    @Test
+    public void getOneProduct() throws Exception {
+        String uuid= UUID.randomUUID().toString();
+        Product product= Product.builder().productName("Name").description("description").quantity(100).build();
+
+        Mockito.when(productService.getProductById(uuid)).thenReturn(Optional.of(product));
+        Mockito.when(productMapper.productToProductDTO(product)).thenReturn(productDto1);
+
+        MockHttpServletResponse response = mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/v1/products/{id}", uuid)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andReturn().getResponse();
+        
+        Assertions.assertEquals(response.getStatus(), HttpStatus.OK.value());
+        Assertions.assertEquals(response.getContentAsString(), jsonProductDto.write(productDto1).getJson());
+        
+    }
 
     @Test
     public void addProduct() throws Exception {
@@ -105,7 +123,7 @@ class ProductControllerTest {
         Mockito.when(productMapper.productToProductDTO(product)).thenReturn(productDto1);
 
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.put("/api/v1/products/"+uuid)
+                MockMvcRequestBuilders.put("/api/v1/products/{id}",uuid)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonProductDto.write(productDto1).getJson())
                         .accept(MediaType.APPLICATION_JSON))
@@ -122,7 +140,7 @@ class ProductControllerTest {
         doNothing().when(productService).deleteProduct(id);
 
         MockHttpServletResponse response = mockMvc.perform(
-                MockMvcRequestBuilders.delete("/api/v1/products/"+id)
+                MockMvcRequestBuilders.delete("/api/v1/products/{id}",id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
