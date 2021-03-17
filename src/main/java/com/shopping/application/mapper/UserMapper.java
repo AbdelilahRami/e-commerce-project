@@ -17,7 +17,7 @@ public abstract class UserMapper {
     public abstract UserDto userToUserDto(User user);
     public abstract List<UserDto> usersToUserDtos(List<User> users);
     
-    @Mapping(target = "id",  expression = "java(Helper.manageProductUUIdConversion(userDto.getId()))")
+    @Mapping(target = "id",  expression = "java(Helper.manageUUIDConversion(userDto.getId()))")
     public abstract User userDtoToUser(UserDto userDto);
     
     public abstract AddressDto adresseToAdressDto(Address address);

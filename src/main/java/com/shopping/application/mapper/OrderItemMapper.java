@@ -12,6 +12,6 @@ public abstract class OrderItemMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "unitPrice", expression = "java(new BigDecimal(orderItemDto.getUnitPrice()))")
-    @Mapping(target = "productId", expression = "java(Helper.manageProductUUIdConversion(orderItemDto.getProductId()))")
+    @Mapping(target = "productId", expression = "java(Helper.manageUUIDConversion(orderItemDto.getProductId()))")
     public abstract OrderItem orderItemDtoToOrderItem(OrderItemDto orderItemDto);
 }

@@ -18,7 +18,7 @@ public class Helper {
     }
 
     /*This method is used for product creation and product update. we throw exception in case of unformatted uuid */
-    public static UUID manageProductUUIdConversion(String id) {
+    public static UUID manageUUIDConversion(String id) {
         UUID uuid;
         try {
             uuid = UUID.fromString(id);

@@ -3,7 +3,6 @@ package com.shopping.application.service;
 
 import com.shopping.application.dto.ProductDto;
 import com.shopping.application.exception.ProductNotFoundException;
-import com.shopping.application.exception.UuidConversionException;
 import com.shopping.application.mapper.Helper;
 import com.shopping.application.mapper.ProductMapper;
 import com.shopping.application.models.Product;
@@ -37,7 +36,7 @@ public class ProductService {
 
     @Transactional
     public Optional<Product> getProductById(String id) {
-        UUID uuid = Helper.manageProductUUIdConversion(id);
+        UUID uuid = Helper.manageUUIDConversion(id);
         return uuid != null ? productRepository.findById(uuid): Optional.empty();
     }
     @Transactional

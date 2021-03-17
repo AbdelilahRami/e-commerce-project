@@ -17,7 +17,9 @@ public class ProductDto {
     private String description;
     @NotEmpty(message = "Please provide a brand name")
     private String brandName;
+    @NotEmpty(message = "Please provide a the product's price")
     private double price;
+    @NotEmpty(message = "Please provide a the product's quantity")
     private int quantity;
     private String user;
     private String productCategory;

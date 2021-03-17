@@ -43,5 +43,5 @@ public class Order {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems;
+    private Set<OrderItem> orderItems= new HashSet<>();
 }

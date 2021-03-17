@@ -1,8 +1,6 @@
 package com.shopping.application.mapper;
 
-import com.shopping.application.dto.BrandDto;
 import com.shopping.application.dto.ProductDto;
-import com.shopping.application.exception.UuidConversionException;
 import com.shopping.application.models.Brand;
 import com.shopping.application.models.Product;
 import com.shopping.application.models.ProductCategory;
@@ -61,7 +59,7 @@ public abstract class ProductMapper {
     public abstract Product productDTOToProduct(ProductDto productDto);
 
     public UUID mapStringToUUID(String id) {
-        return Helper.manageProductUUIdConversion(id);
+        return Helper.manageUUIDConversion(id);
     }
 
     Brand getBrandByName(ProductDto productDto) {
