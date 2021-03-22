@@ -18,40 +18,32 @@ import java.util.*;
 @Service
 public class ProductService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
-
     private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
 
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
-        this.productMapper = productMapper;
     }
 
     @Transactional
-    public ProductDto createProduct(ProductDto productDto) {
-        Product product = productMapper.productDTOToProduct(productDto);
-        Product savedProduct = productRepository.save(product);
-        return productMapper.productToProductDTO(savedProduct);
+    public List<Product> getAll() {
+        return productRepository.findAll();
     }
-
+    
     @Transactional
     public Optional<Product> getProductById(String id) {
         UUID uuid = Helper.manageProductUUIdConversion(id);
         return uuid != null ? productRepository.findById(uuid): Optional.empty();
     }
+    
     @Transactional
-    public Collection<ProductDto> getAll() {
-        List<Product> products = productRepository.findAll();
-        Collection<ProductDto> productDtos = productMapper.mapProductsToProductsDTo(products);
-        return productDtos;
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
     }
+    
     @Transactional
-    public Optional<Product> updateProduct(ProductDto productDto, String id) {
-        Product product = getProductById(id).orElseThrow(ProductNotFoundException::new);
-        Product mappedProduct = productMapper.productDTOToProduct(productDto);
-        Product updatedProduct = productRepository.save(mappedProduct);
-        return Optional.of(updatedProduct);
+    public Product updateProduct(Product product, String id) {
+        getProductById(id).orElseThrow(ProductNotFoundException::new);
+        return productRepository.save(product);
     }
     @Transactional
     public void deleteProduct(String id) {
